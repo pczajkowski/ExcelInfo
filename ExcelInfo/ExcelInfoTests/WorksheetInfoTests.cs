@@ -8,8 +8,8 @@ public class WorksheetInfoTests
     [Fact]
     public void GetInfoOnWorksheets()
     {
-        var result = WorksheetInfo.GetInfoOnWorksheets(DifferentTypesFile);
-        Assert.Equal(2, result.Count);
+        var result = WorksheetInfo.GetInfoOnWorksheets(DifferentTypesFile).ToList();
+        Assert.Equal(2, result.Count());
         Assert.NotEqual(result.First(), result.Last());
         Assert.NotEqual(result.First().Columns, result.Last().Columns);
     }
