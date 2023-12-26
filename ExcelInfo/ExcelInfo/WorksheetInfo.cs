@@ -2,7 +2,7 @@
 
 namespace ExcelInfo
 {
-    public class WorksheetInfo
+    public static class WorksheetInfo
     {
         private static XLDataType EstablishType(IXLCells? cells)
         {
