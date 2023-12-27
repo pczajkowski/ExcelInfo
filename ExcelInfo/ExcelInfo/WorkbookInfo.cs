@@ -13,18 +13,21 @@ namespace ExcelInfo
             return numberOfCells > 2 ? cells.Last().DataType : cells.First().DataType;
         }
 
-        public static IEnumerable<WorksheetRecord> GetInfoOnWorksheets(string workbookPath)
+        public static IEnumerable<WorksheetRecord> GetInfoOnWorksheets(string workbookPath, uint startFrom = 1)
         {
             var workbook = new XLWorkbook(workbookPath);
-            return GetInfoOnWorksheets(workbook);
+            return GetInfoOnWorksheets(workbook, startFrom);
         }
 
-        private static IEnumerable<WorksheetRecord> GetInfoOnWorksheets(IXLWorkbook workbook)
+        private static IEnumerable<WorksheetRecord> GetInfoOnWorksheets(IXLWorkbook workbook, uint startFrom)
         {
-            foreach (var sheet in workbook.Worksheets)
+            foreach (var worksheet in workbook.Worksheets)
             {
                 var columns = new List<ColumnInfo>();
-                var firstRow = sheet.FirstRowUsed();
+                var firstRow = worksheet.Row((int)startFrom);
+                if (firstRow.IsEmpty())
+                    firstRow = worksheet.RowsUsed().First(x => x.RowNumber() > startFrom && !x.IsEmpty());
+                
                 foreach (var cell in firstRow.CellsUsed())
                 {
                     var columnCells = cell.WorksheetColumn().CellsUsed();
@@ -32,7 +35,7 @@ namespace ExcelInfo
                     columns.Add(new ColumnInfo(cell.Address.ColumnLetter, cell.Value.ToString(), columnCells.Count() - 1, cellsType, cell.Address.ColumnNumber));
                 }
 
-                yield return new WorksheetRecord(sheet.Position, sheet.Name, columns);
+                yield return new WorksheetRecord(worksheet.Position, worksheet.Name, columns);
             }
         }
     }
