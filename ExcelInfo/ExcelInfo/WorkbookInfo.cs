@@ -4,7 +4,7 @@ namespace ExcelInfo
 {
     public static class WorkbookInfo
     {
-        private static XLDataType EstablishType(IXLCells? cells)
+        private static XLDataType EstablishType(IEnumerable<IXLCell>? cells)
         {
             if (cells == null || !cells.Any())
                 return XLDataType.Error;
@@ -30,7 +30,8 @@ namespace ExcelInfo
                 
                 foreach (var cell in firstRow.CellsUsed())
                 {
-                    var columnCells = cell.WorksheetColumn().CellsUsed();
+                    var columnCells = cell.WorksheetColumn().Cells()
+                        .Where(x => x.Address.RowNumber > firstRow.RowNumber());
                     var cellsType = EstablishType(columnCells);
                     columns.Add(new ColumnInfo(cell.Address.ColumnLetter, cell.Value.ToString(), columnCells.Count() - 1, cellsType, cell.Address.ColumnNumber));
                 }

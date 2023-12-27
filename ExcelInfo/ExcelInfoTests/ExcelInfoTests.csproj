@@ -23,11 +23,10 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="testFiles\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <None Update="testFiles\differentTypes.xlsx">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="testFiles\differentTypesStartFrom.xlsx">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
     </ItemGroup>
