@@ -4,10 +4,22 @@
         <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+	<Version>1.0.0</Version>
+	<PackageProjectUrl>https://git.liox.eu/pczajkowski/ExcelInfo</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/pczajkowski/ExcelInfo</RepositoryUrl>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
+	<PackageLicenseFile>LICENSE</PackageLicenseFile>
+	<Title>ExcelInfo</Title>
+	<Authors>Piotr Czajkowski</Authors>
+	<Description>Simple library for getting information on Excel file's worksheets and their columns.</Description>
+	<RepositoryType>GitHub</RepositoryType>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="ClosedXML" Version="0.102.1" />
+	    <PackageReference Include="ClosedXML" Version="0.102.1" />
+	    <None Include="../../README.md" Pack="true" PackagePath=""/>
+	    <None Include="../../LICENSE" Pack="true" PackagePath=""/>
     </ItemGroup>
 
 </Project>
